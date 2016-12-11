@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Товары{% endblock %}
+{% block content %}
+    <div class="container" style="max-width: 800px">
+        <div class="jumbotron">
+            <div class="row">
+                {% for prod in product %}
+                     <div class="col-md-12">
+                            <div class="thumbnail">
+
+                        <span class="pull-right"><h2><a href="{{ prod.pk }}">{{ prod.name }}</a></h2></span>
+                         <img src="{{ prod.image.url }}" width="600px">
+                            <div class="caption" align="right">
+                                <div class="description">
+                                    <p>{{ prod.text }}</p>
+                                </div>
+
+                            <h2>Цена: {{ prod.cout }} рублей</h2>
+
+                            {% if subscribed %}
+                        <form method="POST" class="subscribe-form"
+                              action="{% url 'del' tovar_id=prod.pk %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Удалить товар</button>
+                        </form>
+                    {% else %}
+                        <form method="POST" class="subscribe-form" action="{% url 'add' tovar_id=prod.pk %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-success">Добавить в корзину</button>
+                        </form>
+                    {% endif %}
+
+
+                            </div>
+                    </div>
+                            {% empty %}
+                                <h2>Ваша лента пуста!</h2>
+                            {% endfor %}
+          </div>
+        </div>
+    </div>
+
+{% endblock %}
