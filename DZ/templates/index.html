@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Главная{% endblock %}
+{% block content%}
+    {% if not user.is_authenticated %}
+    <h1>Добро пожаловать на сайт, для просмотра его содержимого пройдите <a href="/users/entry">авторизацию</a>
+    или <a href="/users/reg">регистрацию</a>.</h1>
+    {% else %}
+        <h1>Добро пожаловать {{ user.username }}. Для просмотра и покупки товарова перейдите на <a href ='/product'>товары.</a></h1>
+    {% endif %}
+{% endblock %}
